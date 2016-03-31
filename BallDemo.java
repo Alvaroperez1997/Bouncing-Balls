@@ -21,13 +21,6 @@ public class BallDemo
     public BallDemo()
     {
         myCanvas = new Canvas("Ball Demo", 600, 500);
-        ArrayList<Color> colores = new ArrayList<>();
-        colores.add(Color.blue);
-        colores.add(Color.red);
-        colores.add(Color.green);
-        colores.add(Color.pink);
-        colores.add(Color.yellow);
-        colores.add(Color.black);
     }
 
     /**
@@ -36,7 +29,6 @@ public class BallDemo
     public void bounce(int numBall)
     {
         int ground = 400;   // position of the ground line
-        Random rndColor = new Random(7);
         Random rndRadio = new Random(25);
 
         myCanvas.setVisible(true);
@@ -47,12 +39,14 @@ public class BallDemo
 
         // crate and show the balls
         for(int a = 0; a < numBall; a++) {
-            int x = 50;
-            Color color = colores.get(rndColor.nextInt());
-            BouncingBall ball = new BouncingBall(x, 50, rndRadio.nextInt(), color, ground, myCanvas);
+            BouncingBall ball = new BouncingBall(50, 50, rndRadio.nextInt(), Color.RED, ground, myCanvas);
             balls.add(ball);
-            ball.draw();
-            x= x + 10;
+            
+        }
+        BouncingBall bola = null;
+        for(int b = 0; b < balls.size(); b++) {
+            bola = balls.get(b);
+            bola.draw();
         }
         // make them bounce
         boolean finished =  false;
@@ -66,5 +60,31 @@ public class BallDemo
                 }
             }
         }
+    }
+    
+    /**
+     * Dibuja un rectangulo y bolas dentro que rebotan en las paredes
+     * de dicho rectangulo. Su direccion ha de ser oblicua
+     * Nunca termina
+     */
+    public void boxBounce(int numBall) {
+        myCanvas.setVisible(true);
+        Random rndRadio = new Random(25);
+        ArrayList<BouncingBall> balls = new ArrayList<>();
+        
+        myCanvas.drawLine(100, 100, 100, 400);
+        myCanvas.drawLine(100, 400, 500, 400);
+        myCanvas.drawLine(500, 400, 500, 100);
+        myCanvas.drawLine(500, 100, 100, 100);
+        
+        
+        BouncingBall ball = new BouncingBall(150, 150, 16, Color.RED, 0, myCanvas);
+        ball.draw();
+        //for(int a = 0; a < numBall; a++) {
+        //    BouncingBall ball = new BouncingBall(150, 150, 16, Color.RED, 0, myCanvas);
+        //    ball.draw();
+        //    balls.add(ball);
+        
+        
     }
 }
